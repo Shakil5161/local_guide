@@ -1,0 +1,21 @@
+model Booking {
+  id                  String          @id @default(uuid())
+  touristId           String
+  guideId             String
+  tourId              String
+  bookingDate         DateTime
+  numberOfPeople      Int
+  totalPrice          Float
+  status              BookingStatus   @default(PENDING)
+  specialRequests     String?
+  
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+
+  tourist             User            @relation("TouristBookings", fields: [touristId], references: [id], onDelete: Cascade)
+  guide               User            @relation("GuideBookings", fields: [guideId], references: [id], onDelete: Cascade)
+  tour                Tour            @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  payment             Payment?
+
+  @@map("bookings")
+}

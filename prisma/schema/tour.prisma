@@ -1,0 +1,27 @@
+model Tour {
+  id                  String        @id @default(uuid())
+  guideId             String
+  title               String
+  description         String
+  category            TourCategory
+  price               Float
+  duration            Int           // Duration in hours
+  maxGroupSize        Int
+  location            String
+  city                String
+  country             String
+  meetingPoint        String
+  images              String[]
+  included            String[]      // What's included in the tour
+  excluded            String[]      // What's not included
+  isActive            Boolean       @default(true)
+  
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  guide               User          @relation("GuideTours", fields: [guideId], references: [id], onDelete: Cascade)
+  bookings            Booking[]
+  reviews             Review[]
+
+  @@map("tours")
+}

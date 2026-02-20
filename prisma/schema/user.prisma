@@ -1,0 +1,48 @@
+model User {
+  id                  String      @id @default(uuid())
+  email               String      @unique
+  password            String
+  role                UserRole    @default(TOURIST)
+  status              UserStatus  @default(ACTIVE)
+  needPasswordChange  Boolean     @default(false)
+  
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+
+
+  profile             Profile?
+  bookingsAsTourist   Booking[]   @relation("TouristBookings")
+  bookingsAsGuide     Booking[]   @relation("GuideBookings")
+  toursAsGuide        Tour[]      @relation("GuideTours")
+  reviews             Review[]
+  payments            Payment[]
+
+  @@map("users")
+}
+
+model Profile {
+  id                  String      @id @default(uuid())
+  userId              String      @unique
+  name                String
+  profilePicture      String?
+  bio                 String?
+  phone               String?
+  city                String?
+  country             String?
+  languages           String[]    // Array of languages spoken
+  
+
+  expertise           String[]    // Array of expertise areas
+  dailyRate           Float?      // How much they charge per day
+  yearsOfExperience   Int?
+  isVerified          Boolean     @default(false)
+  
+  travelPreferences   String[]    // Array of travel preferences
+  
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+
+  user                User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("profiles")
+}

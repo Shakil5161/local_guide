@@ -1,0 +1,33 @@
+// Enums
+enum UserRole {
+  TOURIST
+  GUIDE
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  BLOCKED
+  DELETED
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  REJECTED
+}
+
+enum TourCategory {
+  FOOD
+  ART
+  ADVENTURE
+  HISTORY
+  NIGHTLIFE
+  SHOPPING
+  CULTURE
+  NATURE
+  PHOTOGRAPHY
+  OTHER
+}
