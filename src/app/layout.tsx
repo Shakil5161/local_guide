@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
 import { AuthProvider } from "@/providers/auth-provider";
 import { Navbar } from "@/components/shared/navbar";
 
@@ -32,6 +33,7 @@ export default function RootLayout({
         <AuthProvider>
           <Navbar />
           <main className="min-h-[calc(100vh-64px)]">{children}</main>
+          <Toaster richColors position="top-right" closeButton />
         </AuthProvider>
       </body>
     </html>
