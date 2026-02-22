@@ -19,6 +19,7 @@ import {
   ExternalLink,
   Phone,
   Mail,
+  Map,
 } from "lucide-react";
 
 // ─── Status Badge ─────────────────────────────────────────────────────────────
@@ -350,10 +351,20 @@ function GuideDashboardContent() {
       {/* Header */}
       <div className="bg-gradient-to-r from-indigo-700 to-sky-700 px-4 py-10 text-white">
         <div className="mx-auto max-w-4xl">
-          <h1 className="text-2xl font-bold md:text-3xl">Guide Dashboard</h1>
-          <p className="mt-1 text-indigo-100">
-            Manage booking requests from tourists
-          </p>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <h1 className="text-2xl font-bold md:text-3xl">Guide Dashboard</h1>
+              <p className="mt-1 text-indigo-100">
+                Manage booking requests from tourists
+              </p>
+            </div>
+            <Link href="/dashboard/guide/tours">
+              <Button className="gap-2 bg-white text-indigo-700 hover:bg-indigo-50">
+                <Map className="h-4 w-4" />
+                Manage My Tours
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
 

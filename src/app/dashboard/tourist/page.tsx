@@ -18,6 +18,8 @@ import {
   Loader2,
   ExternalLink,
   Tag,
+  Star,
+  UserCircle,
 } from "lucide-react";
 
 // ─── Status Badge ─────────────────────────────────────────────────────────────
@@ -310,10 +312,28 @@ function TouristDashboardContent() {
       {/* Header */}
       <div className="bg-gradient-to-r from-sky-700 to-indigo-700 px-4 py-10 text-white">
         <div className="mx-auto max-w-4xl">
-          <h1 className="text-2xl font-bold md:text-3xl">My Bookings</h1>
-          <p className="mt-1 text-sky-100">
-            {bookings.length} total booking{bookings.length !== 1 ? "s" : ""}
-          </p>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <h1 className="text-2xl font-bold md:text-3xl">My Bookings</h1>
+              <p className="mt-1 text-sky-100">
+                {bookings.length} total booking{bookings.length !== 1 ? "s" : ""}
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <Link href="/dashboard/tourist/reviews">
+                <Button className="gap-2 bg-white text-sky-700 hover:bg-sky-50">
+                  <Star className="h-4 w-4" />
+                  My Reviews
+                </Button>
+              </Link>
+              <Link href="/dashboard/profile">
+                <Button className="gap-2 bg-white/20 text-white hover:bg-white/30">
+                  <UserCircle className="h-4 w-4" />
+                  Profile
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 
