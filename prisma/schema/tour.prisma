@@ -22,6 +22,21 @@ model Tour {
   guide               User          @relation("GuideTours", fields: [guideId], references: [id], onDelete: Cascade)
   bookings            Booking[]
   reviews             Review[]
+  availability        TourAvailability[]
 
   @@map("tours")
+}
+
+model TourAvailability {
+  id        String   @id @default(uuid())
+  tourId    String
+  date      DateTime // The available date (time stored as UTC noon)
+  slots     Int      @default(1) // How many bookings allowed on this date
+
+  createdAt DateTime @default(now())
+
+  tour      Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+
+  @@unique([tourId, date])
+  @@map("tour_availability")
 }

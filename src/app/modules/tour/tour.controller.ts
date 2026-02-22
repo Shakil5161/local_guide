@@ -77,11 +77,55 @@ const getMyTours = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+// ==================== GET AVAILABILITY ====================
+const getAvailability = catchAsync(async (req: Request, res: Response) => {
+    const result = await TourService.getAvailability(req.params.id);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Availability retrieved successfully!",
+        data: result
+    });
+});
+
+// ==================== SET AVAILABILITY ====================
+const setAvailability = catchAsync(async (req: Request, res: Response) => {
+    const result = await TourService.setAvailability(
+        req.params.id,
+        req.user!.email,
+        req.body.dates, // array of { date: ISO string, slots: number }
+    );
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Availability updated successfully!",
+        data: result
+    });
+});
+
+// ==================== DELETE AVAILABILITY DATE ====================
+const deleteAvailabilityDate = catchAsync(async (req: Request, res: Response) => {
+    const result = await TourService.deleteAvailabilityDate(
+        req.params.id,
+        req.params.availId,
+        req.user!.email
+    );
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Date removed successfully!",
+        data: result
+    });
+});
+
 export const TourController = {
     createTour,
     getAllTours,
     getTourById,
     updateTour,
     deleteTour,
-    getMyTours
+    getMyTours,
+    getAvailability,
+    setAvailability,
+    deleteAvailabilityDate,
 };

@@ -304,11 +304,74 @@ const getMyTours = async (guideEmail: string) => {
     return tours;
 };
 
+// ==================== GET AVAILABILITY ====================
+const getAvailability = async (tourId: string) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return prisma.tourAvailability.findMany({
+        where: {
+            tourId,
+            date: { gte: today },
+        },
+        orderBy: { date: 'asc' },
+    });
+};
+
+// ==================== SET AVAILABILITY ====================
+const setAvailability = async (
+    tourId: string,
+    guideEmail: string,
+    dates: { date: string; slots?: number }[]
+) => {
+    // Verify the tour belongs to this guide
+    const tour = await prisma.tour.findFirst({
+        where: { id: tourId, guide: { email: guideEmail } },
+    });
+    if (!tour) throw new ApiError(httpStatus.FORBIDDEN, "You don't own this tour.");
+
+    if (!Array.isArray(dates) || dates.length === 0) {
+        throw new ApiError(httpStatus.BAD_REQUEST, "Please provide at least one date.");
+    }
+
+    // Upsert each date
+    const results = await Promise.all(
+        dates.map(({ date, slots }) => {
+            const d = new Date(date);
+            d.setUTCHours(12, 0, 0, 0); // Store as UTC noon to avoid timezone drift
+            return prisma.tourAvailability.upsert({
+                where: { tourId_date: { tourId, date: d } },
+                create: { tourId, date: d, slots: slots ?? 1 },
+                update: { slots: slots ?? 1 },
+            });
+        })
+    );
+
+    return results;
+};
+
+// ==================== DELETE AVAILABILITY DATE ====================
+const deleteAvailabilityDate = async (
+    tourId: string,
+    availId: string,
+    guideEmail: string
+) => {
+    const tour = await prisma.tour.findFirst({
+        where: { id: tourId, guide: { email: guideEmail } },
+    });
+    if (!tour) throw new ApiError(httpStatus.FORBIDDEN, "You don't own this tour.");
+
+    return prisma.tourAvailability.delete({ where: { id: availId } });
+};
+
 export const TourService = {
     createTour,
     getAllTours,
     getTourById,
     updateTour,
     deleteTour,
-    getMyTours
+    getMyTours,
+    getAvailability,
+    setAvailability,
+    deleteAvailabilityDate,
 };
