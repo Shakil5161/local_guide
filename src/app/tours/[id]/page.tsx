@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useCallback, useState, FormEvent } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,6 +23,11 @@ import {
   User,
   Shield,
 } from "lucide-react";
+import {
+  AvailabilityCalendar,
+  AvailDate,
+} from "@/components/shared/availability-calendar";
+import { TourMap } from "@/components/shared/tour-map";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -72,11 +77,30 @@ function BookingWidget({ tour }: { tour: Tour }) {
   const [people, setPeople] = useState(1);
   const [notes, setNotes] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [availDates, setAvailDates] = useState<AvailDate[]>([]);
+  const [loadingAvail, setLoadingAvail] = useState(true);
+  const [showFallback, setShowFallback] = useState(false);
 
   const total = tour.price * people;
-
-  // Get today in YYYY-MM-DD for the min date
   const today = new Date().toISOString().split("T")[0];
+
+  // Fetch availability on mount
+  useEffect(() => {
+    const fetchAvail = async () => {
+      setLoadingAvail(true);
+      try {
+        const res = await api.get(`/tours/${tour.id}/availability`);
+        const data: AvailDate[] = res.data?.data ?? [];
+        setAvailDates(data);
+        if (data.length === 0) setShowFallback(true);
+      } catch {
+        setShowFallback(true);
+      } finally {
+        setLoadingAvail(false);
+      }
+    };
+    fetchAvail();
+  }, [tour.id]);
 
   const handleBook = async (e: FormEvent) => {
     e.preventDefault();
@@ -129,19 +153,52 @@ function BookingWidget({ tour }: { tour: Tour }) {
       </div>
 
       <form onSubmit={handleBook} className="space-y-4">
+        {/* ── Date picker: calendar or fallback ── */}
         <div className="space-y-1">
           <label className="flex items-center gap-1.5 text-sm font-semibold text-slate-700">
             <Calendar className="h-4 w-4 text-sky-500" />
-            Date
+            Select a Date
           </label>
-          <Input
-            type="date"
-            min={today}
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-            className="h-11"
-          />
+
+          {loadingAvail ? (
+            <div className="flex items-center justify-center py-6 text-sky-500">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          ) : showFallback || availDates.length === 0 ? (
+            <>
+              <Input
+                type="date"
+                min={today}
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+                className="h-11"
+              />
+              <p className="text-xs text-slate-400">
+                No specific availability set — pick any future date.
+              </p>
+            </>
+          ) : (
+            <>
+              <AvailabilityCalendar
+                mode="view"
+                availDates={availDates}
+                selectedDate={date}
+                onSelectDate={(d) => setDate(d)}
+              />
+              {date && (
+                <p className="text-xs font-semibold text-emerald-600">
+                  ✅ Selected:{" "}
+                  {new Date(date).toLocaleDateString("en-US", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </p>
+              )}
+            </>
+          )}
         </div>
 
         <div className="space-y-1">
@@ -366,13 +423,14 @@ export default function TourDetailPage() {
               <p className="leading-relaxed text-slate-600">{tour.description}</p>
             </section>
 
-            {/* Meeting point */}
-            <section className="flex items-start gap-3 rounded-xl border border-sky-100 bg-sky-50 p-4">
-              <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-sky-600" />
-              <div>
-                <p className="text-sm font-semibold text-sky-800">Meeting Point</p>
-                <p className="text-sm text-sky-700">{tour.meetingPoint}</p>
-              </div>
+            {/* Meeting point + Interactive Map */}
+            <section>
+              <TourMap
+                city={tour.city}
+                country={tour.country}
+                meetingPoint={tour.meetingPoint}
+                title={tour.title}
+              />
             </section>
 
             {/* Included / Excluded */}

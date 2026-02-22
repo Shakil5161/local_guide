@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { api } from "@/lib/api";
+import { useLanguage } from "@/providers/language-provider";
 import {
   MapPin,
   Star,
@@ -55,6 +56,7 @@ interface FeaturedGuide {
 // ─── Section 1 – Hero ────────────────────────────────────────────────────────
 
 function HeroSection() {
+  const { t } = useLanguage();
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-sky-900 to-indigo-900 text-white">
       {/* Background pattern */}
@@ -66,7 +68,7 @@ function HeroSection() {
           {/* Badge */}
           <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-sky-500/20 px-4 py-1.5 text-sm font-medium text-sky-300 ring-1 ring-sky-500/40">
             <Compass className="h-4 w-4" />
-            Discover the world through local eyes
+            {t.home.heroTitle}
           </div>
 
           <h1 className="text-4xl font-bold leading-tight md:text-6xl">
@@ -78,9 +80,7 @@ function HeroSection() {
           </h1>
 
           <p className="mt-5 text-lg text-slate-300 leading-relaxed max-w-2xl">
-            Skip the tourist traps. Connect with passionate locals who know the
-            hidden food streets, cultural stories, and secret spots that no
-            travel guide will ever tell you.
+            {t.home.heroSubtitle}
           </p>
 
           {/* CTA buttons */}
@@ -90,13 +90,13 @@ function HeroSection() {
               className="flex items-center gap-2 rounded-xl bg-sky-500 px-6 py-3.5 font-semibold text-white shadow-lg shadow-sky-500/25 transition-all hover:bg-sky-400 hover:shadow-sky-400/30"
             >
               <Search className="h-4 w-4" />
-              Explore Tours
+              {t.home.exploreBtn}
             </Link>
             <Link
               href="/guides"
               className="flex items-center gap-2 rounded-xl bg-white/10 px-6 py-3.5 font-semibold text-white ring-1 ring-white/20 transition-all hover:bg-white/20"
             >
-              Find Guides
+              {t.nav.findGuides}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -165,6 +165,7 @@ interface CityData {
 }
 
 function PopularCitiesSection() {
+  const { t } = useLanguage();
   const [cities, setCities] = useState<CityData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -201,10 +202,10 @@ function PopularCitiesSection() {
             Destinations
           </p>
           <h2 className="mt-2 text-3xl font-bold text-slate-800 md:text-4xl">
-            Popular Cities
+            {t.home.popularCities}
           </h2>
           <p className="mt-3 text-slate-500 max-w-xl mx-auto">
-            Every city has its own story. Find a local guide who knows it by heart.
+            {t.home.popularCitiesDesc}
           </p>
         </div>
 
@@ -299,6 +300,7 @@ const STEPS = [
 ];
 
 function HowItWorksSection() {
+  const { t } = useLanguage();
   return (
     <section className="bg-slate-50 py-20">
       <div className="mx-auto max-w-6xl px-4">
@@ -307,10 +309,10 @@ function HowItWorksSection() {
             Simple Process
           </p>
           <h2 className="mt-2 text-3xl font-bold text-slate-800 md:text-4xl">
-            How It Works
+            {t.home.howItWorks}
           </h2>
           <p className="mt-3 text-slate-500 max-w-xl mx-auto">
-            From discovery to adventure in three easy steps.
+            {t.home.howItWorksDesc}
           </p>
         </div>
 
@@ -415,6 +417,7 @@ function FeaturedTourSkeleton() {
 }
 
 function FeaturedToursSection() {
+  const { t } = useLanguage();
   const [tours, setTours] = useState<FeaturedTour[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -435,17 +438,17 @@ function FeaturedToursSection() {
               Handpicked
             </p>
             <h2 className="mt-1 text-3xl font-bold text-slate-800 md:text-4xl">
-              Featured Tours
+              {t.home.featuredTours}
             </h2>
             <p className="mt-2 text-slate-500">
-              Explore some of our top-rated local experiences.
+              {t.home.featuredToursDesc}
             </p>
           </div>
           <Link
             href="/explore"
             className="flex items-center gap-1.5 rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
           >
-            View all tours <ArrowRight className="h-4 w-4" />
+            {t.common.viewAll} <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
@@ -470,6 +473,16 @@ function FeaturedToursSection() {
         )}
       </div>
     </section>
+  );
+}
+
+// ─── Translated sub-component (needs hook) ────────────────────────────────────
+function ViewProfileButton() {
+  const { t } = useLanguage();
+  return (
+    <span className="mt-4 w-full rounded-xl bg-sky-50 py-2 text-sm font-semibold text-sky-700 transition-colors group-hover:bg-sky-100">
+      {t.common.viewProfile}
+    </span>
   );
 }
 
@@ -543,9 +556,7 @@ function FeaturedGuideCard({ guide }: { guide: FeaturedGuide }) {
           </div>
         )}
 
-        <span className="mt-4 w-full rounded-xl bg-sky-50 py-2 text-sm font-semibold text-sky-700 transition-colors group-hover:bg-sky-100">
-          View Profile
-        </span>
+        <ViewProfileButton />
       </div>
     </Link>
   );
@@ -563,6 +574,7 @@ function FeaturedGuideSkeleton() {
 }
 
 function FeaturedGuidesSection() {
+  const { t } = useLanguage();
   const [guides, setGuides] = useState<FeaturedGuide[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -593,7 +605,7 @@ function FeaturedGuidesSection() {
             href="/guides"
             className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
           >
-            All guides <ArrowRight className="h-4 w-4" />
+            {t.common.viewAll} <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
 
@@ -663,6 +675,7 @@ const WHY_US = [
 ];
 
 function WhyChooseUsSection() {
+  const { t } = useLanguage();
   return (
     <section className="bg-white py-20">
       <div className="mx-auto max-w-6xl px-4">
@@ -671,7 +684,7 @@ function WhyChooseUsSection() {
             Why Local Guide
           </p>
           <h2 className="mt-2 text-3xl font-bold text-slate-800 md:text-4xl">
-            Travel with confidence
+            {t.home.whyChooseUs}
           </h2>
           <p className="mt-3 text-slate-500 max-w-xl mx-auto">
             We built Local Guide to make authentic travel easy, safe, and memorable.
@@ -727,18 +740,17 @@ function StatsSection() {
 // ─── Section 8 – CTA ─────────────────────────────────────────────────────────
 
 function CtaSection() {
+  const { t } = useLanguage();
   return (
     <section className="bg-slate-50 py-20">
       <div className="mx-auto max-w-3xl px-4 text-center">
         <div className="rounded-3xl bg-gradient-to-br from-slate-900 to-sky-900 p-12 text-white shadow-2xl">
           <span className="text-5xl">🌍</span>
           <h2 className="mt-4 text-3xl font-bold md:text-4xl">
-            Ready for your next adventure?
+            {t.home.becomeGuide}
           </h2>
           <p className="mt-4 text-sky-200 leading-relaxed">
-            Join thousands of travelers who discovered the real side of their
-            destinations. Or become a guide and share your local knowledge with
-            the world.
+            {t.home.becomeGuideDesc}
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3">
@@ -747,13 +759,13 @@ function CtaSection() {
               className="flex items-center gap-2 rounded-xl bg-sky-500 px-6 py-3 font-semibold shadow-lg shadow-sky-500/30 transition hover:bg-sky-400"
             >
               <Search className="h-4 w-4" />
-              Start Exploring
+              {t.home.exploreBtn}
             </Link>
             <Link
               href="/register"
               className="flex items-center gap-2 rounded-xl bg-white/10 px-6 py-3 font-semibold ring-1 ring-white/20 transition hover:bg-white/20"
             >
-              Become a Guide
+              {t.home.becomeGuideBtn}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

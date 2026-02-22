@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useAuth } from "@/providers/auth-provider";
+import { useLanguage } from "@/providers/language-provider";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,7 @@ import { Loader2, UserPlus } from "lucide-react";
 
 export default function RegisterPage() {
   const { register } = useAuth();
+  const { t } = useLanguage();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState<"TOURIST" | "GUIDE">("TOURIST");
@@ -21,7 +23,7 @@ export default function RegisterPage() {
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const toastId = toast.loading("Creating your account...");
+    const toastId = toast.loading(t.common.loading);
 
     try {
       await register({
@@ -55,10 +57,10 @@ export default function RegisterPage() {
             <UserPlus className="h-7 w-7 text-sky-600" />
           </div>
           <CardTitle className="text-2xl font-bold text-slate-800">
-            Create your account
+            {t.auth.registerTitle}
           </CardTitle>
           <p className="text-sm text-slate-500">
-            Join thousands of travelers and guides
+            {t.auth.registerSubtitle}
           </p>
         </CardHeader>
 
@@ -76,7 +78,7 @@ export default function RegisterPage() {
                     : "text-slate-500 hover:text-slate-700"
                 }`}
               >
-                {r === "TOURIST" ? "🧳 Tourist" : "🗺️ Guide"}
+                {r === "TOURIST" ? `🧳 ${t.auth.tourist}` : `🗺️ ${t.auth.guide}`}
               </button>
             ))}
           </div>
@@ -84,14 +86,14 @@ export default function RegisterPage() {
           <form onSubmit={handleSubmit} className="space-y-3">
             <div className="space-y-1">
               <label className="text-sm font-medium text-slate-700">
-                Full Name
+                {t.auth.name}
               </label>
               <Input name="name" required placeholder="John Doe" className="h-11" />
             </div>
 
             <div className="space-y-1">
               <label className="text-sm font-medium text-slate-700">
-                Email
+                {t.auth.email}
               </label>
               <Input
                 name="email"
@@ -104,7 +106,7 @@ export default function RegisterPage() {
 
             <div className="space-y-1">
               <label className="text-sm font-medium text-slate-700">
-                Password
+                {t.auth.password}
               </label>
               <Input
                 name="password"
@@ -117,15 +119,11 @@ export default function RegisterPage() {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1">
-                <label className="text-sm font-medium text-slate-700">
-                  City
-                </label>
+                <label className="text-sm font-medium text-slate-700">City</label>
                 <Input name="city" placeholder="New York" className="h-11" />
               </div>
               <div className="space-y-1">
-                <label className="text-sm font-medium text-slate-700">
-                  Country
-                </label>
+                <label className="text-sm font-medium text-slate-700">Country</label>
                 <Input name="country" placeholder="USA" className="h-11" />
               </div>
             </div>
@@ -149,21 +147,21 @@ export default function RegisterPage() {
               {loading ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Creating account...
+                  {t.auth.registerBtn}…
                 </>
               ) : (
-                `Create ${role === "TOURIST" ? "Tourist" : "Guide"} Account`
+                t.auth.registerBtn
               )}
             </Button>
           </form>
 
           <p className="mt-6 text-center text-sm text-slate-500">
-            Already have an account?{" "}
+            {t.auth.hasAccount}{" "}
             <Link
               href="/login"
               className="font-semibold text-sky-600 hover:underline"
             >
-              Sign in
+              {t.auth.signIn}
             </Link>
           </p>
         </CardContent>

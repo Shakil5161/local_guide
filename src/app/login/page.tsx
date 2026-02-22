@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useAuth } from "@/providers/auth-provider";
+import { useLanguage } from "@/providers/language-provider";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,7 @@ import { Loader2, LogIn } from "lucide-react";
 
 export default function LoginPage() {
   const { login } = useAuth();
+  const { t } = useLanguage();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -23,7 +25,7 @@ export default function LoginPage() {
     const email = String(formData.get("email") || "");
     const password = String(formData.get("password") || "");
 
-    const toastId = toast.loading("Signing in...");
+    const toastId = toast.loading(t.common.loading);
 
     try {
       await login(email, password);
@@ -47,10 +49,10 @@ export default function LoginPage() {
             <LogIn className="h-7 w-7 text-sky-600" />
           </div>
           <CardTitle className="text-2xl font-bold text-slate-800">
-            Welcome back
+            {t.auth.loginTitle}
           </CardTitle>
           <p className="text-sm text-slate-500">
-            Sign in to your Local Guide account
+            {t.auth.loginSubtitle}
           </p>
         </CardHeader>
 
@@ -58,7 +60,7 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1">
               <label className="text-sm font-medium text-slate-700">
-                Email
+                {t.auth.email}
               </label>
               <Input
                 name="email"
@@ -71,7 +73,7 @@ export default function LoginPage() {
 
             <div className="space-y-1">
               <label className="text-sm font-medium text-slate-700">
-                Password
+                {t.auth.password}
               </label>
               <Input
                 name="password"
@@ -90,21 +92,21 @@ export default function LoginPage() {
               {loading ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Signing in...
+                  {t.auth.loginBtn}…
                 </>
               ) : (
-                "Sign in"
+                t.auth.loginBtn
               )}
             </Button>
           </form>
 
           <p className="mt-6 text-center text-sm text-slate-500">
-            Don&apos;t have an account?{" "}
+            {t.auth.noAccount}{" "}
             <Link
               href="/register"
               className="font-semibold text-sky-600 hover:underline"
             >
-              Create one free
+              {t.auth.signUp}
             </Link>
           </p>
         </CardContent>

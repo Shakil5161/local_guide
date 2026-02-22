@@ -23,6 +23,12 @@ import {
   Heart,
 } from "lucide-react";
 import Image2 from "next/image";
+import {
+  computeBadges,
+  GuideBadge,
+  GuideBadgeList,
+} from "@/components/shared/guide-badges";
+import { TourMap } from "@/components/shared/tour-map";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -30,6 +36,7 @@ interface GuideProfile {
   id: string;
   email: string;
   role: string;
+  createdAt?: string | null;
   profile: {
     name: string;
     bio: string | null;
@@ -253,6 +260,24 @@ export default function GuideProfilePage() {
     p?.profilePicture ||
     `https://ui-avatars.com/api/?name=${encodeURIComponent(p?.name ?? "Guide")}&background=0ea5e9&color=fff&size=300`;
 
+  // Compute avg rating across all tours
+  const allReviews = tours.flatMap((t) => t.reviews ?? []);
+  const avgRating =
+    allReviews.length > 0
+      ? allReviews.reduce((s, r) => s + r.rating, 0) / allReviews.length
+      : null;
+
+  const badges = computeBadges({
+    isVerified: p?.isVerified ?? false,
+    yearsOfExperience: p?.yearsOfExperience ?? null,
+    tourCount: tours.length,
+    avgRating,
+    reviewCount: allReviews.length,
+    expertise: p?.expertise ?? [],
+    languages: p?.languages ?? [],
+    createdAt: guide!.createdAt,
+  });
+
   return (
     <div className="min-h-screen bg-slate-50">
       {/* ── Banner ── */}
@@ -419,7 +444,43 @@ export default function GuideProfilePage() {
               </div>
             )}
           </div>
+
+          {/* ── Badges ── */}
+          {badges.length > 0 && (
+            <div className="border-t border-slate-100 px-6 py-5">
+              <h2 className="mb-3 flex items-center gap-2 font-semibold text-slate-700">
+                🏅 Achievements &amp; Badges
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {badges.map((badge) => (
+                  <div
+                    key={badge.key}
+                    className={`flex items-start gap-3 rounded-xl p-3 ring-1 ${badge.color} ${badge.ring}`}
+                  >
+                    <span className="text-2xl leading-none">{badge.emoji}</span>
+                    <div>
+                      <p className="font-semibold text-sm">{badge.label}</p>
+                      <p className="text-xs opacity-80 mt-0.5 leading-relaxed">
+                        {badge.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
+
+        {/* ── Location Map ── */}
+        {p?.city && p?.country && (
+          <div className="mt-6">
+            <TourMap
+              city={p.city}
+              country={p.country}
+              title={`${p.name ?? "Guide"}'s Location`}
+            />
+          </div>
+        )}
 
         {/* ── Tours by this guide ── */}
         <div className="mt-10 mb-12">

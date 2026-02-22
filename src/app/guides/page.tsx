@@ -20,6 +20,10 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageLoader } from "@/components/shared/page-loader";
+import {
+  computeBadges,
+  GuideBadgeList,
+} from "@/components/shared/guide-badges";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -35,9 +39,11 @@ interface Guide {
   dailyRate: number | null;
   yearsOfExperience: number | null;
   isVerified: boolean;
+  createdAt?: string | null;
   user: {
     id: string;
     email: string;
+    createdAt?: string | null;
     _count: { toursAsGuide: number };
   };
 }
@@ -48,6 +54,17 @@ function GuideCard({ guide }: { guide: Guide }) {
   const avatar =
     guide.profilePicture ||
     `https://ui-avatars.com/api/?name=${encodeURIComponent(guide.name)}&background=0ea5e9&color=fff&size=200`;
+
+  const badges = computeBadges({
+    isVerified: guide.isVerified,
+    yearsOfExperience: guide.yearsOfExperience,
+    tourCount: guide.user._count.toursAsGuide,
+    avgRating: null,
+    reviewCount: 0,
+    expertise: guide.expertise,
+    languages: guide.languages,
+    createdAt: guide.user.createdAt ?? guide.createdAt,
+  });
 
   return (
     <Link href={`/guides/${guide.user.id}`}>
@@ -144,6 +161,13 @@ function GuideCard({ guide }: { guide: Guide }) {
                   {exp}
                 </span>
               ))}
+            </div>
+          )}
+
+          {/* Badges */}
+          {badges.length > 0 && (
+            <div className="mt-3">
+              <GuideBadgeList badges={badges} max={2} size="xs" />
             </div>
           )}
 

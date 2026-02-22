@@ -1,29 +1,33 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useLanguage } from "@/providers/language-provider";
 
 export function Footer() {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   const links = {
-    Explore: [
-      { label: "Browse Tours", href: "/explore" },
-      { label: "Find Guides", href: "/guides" },
-      { label: "Popular Cities", href: "/explore?city=Dhaka" },
+    [t.footer.explore]: [
+      { label: t.common.viewAll, href: "/explore" },
+      { label: t.nav.findGuides, href: "/guides" },
+      { label: t.home.popularCities, href: "/explore?city=Dhaka" },
     ],
-    Company: [
-      { label: "About Us", href: "/about" },
-      { label: "Contact", href: "/contact" },
+    [t.footer.company]: [
+      { label: t.nav.about, href: "/about" },
+      { label: t.nav.contact, href: "/contact" },
       { label: "FAQ", href: "/faq" },
     ],
-    Account: [
-      { label: "Login", href: "/login" },
-      { label: "Register", href: "/register" },
-      { label: "Become a Guide", href: "/register" },
+    [t.footer.account]: [
+      { label: t.nav.login, href: "/login" },
+      { label: t.nav.register, href: "/register" },
+      { label: t.home.becomeGuideBtn, href: "/register" },
     ],
-    Dashboard: [
-      { label: "My Bookings", href: "/dashboard/tourist" },
-      { label: "My Reviews", href: "/dashboard/tourist/reviews" },
-      { label: "Profile", href: "/dashboard/profile" },
+    [t.footer.dashboard]: [
+      { label: t.nav.myBookings, href: "/dashboard/tourist" },
+      { label: t.nav.myReviews, href: "/dashboard/tourist/reviews" },
+      { label: t.nav.profile, href: "/dashboard/profile" },
     ],
   };
 
@@ -43,11 +47,9 @@ export function Footer() {
               />
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-slate-400">
-              Connecting travelers with passionate local guides for authentic,
-              unforgettable experiences around the world.
+              {t.footer.tagline}
             </p>
             <div className="mt-5 flex gap-3">
-              {/* Social icons */}
               {[
                 { label: "Facebook", icon: "f", href: "#" },
                 { label: "Twitter", icon: "𝕏", href: "#" },
@@ -89,17 +91,11 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-slate-800 pt-6 text-xs text-slate-500 sm:flex-row">
-          <p>© {currentYear} Local Guide. All rights reserved.</p>
+          <p>© {currentYear} Local Guide. {t.footer.rights}</p>
           <div className="flex gap-4">
-            <Link href="/faq" className="hover:text-sky-400 transition-colors">
-              FAQ
-            </Link>
-            <Link href="/about" className="hover:text-sky-400 transition-colors">
-              About
-            </Link>
-            <Link href="/contact" className="hover:text-sky-400 transition-colors">
-              Contact
-            </Link>
+            <Link href="/faq" className="hover:text-sky-400 transition-colors">FAQ</Link>
+            <Link href="/about" className="hover:text-sky-400 transition-colors">{t.nav.about}</Link>
+            <Link href="/contact" className="hover:text-sky-400 transition-colors">{t.nav.contact}</Link>
           </div>
         </div>
       </div>

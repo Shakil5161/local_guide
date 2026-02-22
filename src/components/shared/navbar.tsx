@@ -6,11 +6,11 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, LogOut, User } from "lucide-react";
 import { useAuth } from "@/providers/auth-provider";
+import { useLanguage } from "@/providers/language-provider";
 import { cn } from "@/lib/utils";
+import { LanguageSwitcher } from "@/components/shared/language-switcher";
 
 // ─── NavLink ──────────────────────────────────────────────────────────────────
-// `prefix = true`  → sub-paths also activate the link  (e.g. /explore/*)
-// `prefix = false` → exact match only                   (default)
 function NavLink({
   href,
   label,
@@ -40,34 +40,36 @@ function NavLink({
 
 export const Navbar = () => {
   const { user, logout, loading } = useAuth();
+  const { t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   // prettier-ignore
   const commonLinks = [
-    { href: "/explore",  label: "Explore Tours", prefix: true  },
-    { href: "/guides",   label: "Find Guides",   prefix: true  },
-    { href: "/about",    label: "About",         prefix: false },
-    { href: "/contact",  label: "Contact",       prefix: false },
+    { href: "/explore",  label: t.nav.explore,     prefix: true  },
+    { href: "/guides",   label: t.nav.findGuides,  prefix: true  },
+    { href: "/about",    label: t.nav.about,       prefix: false },
+    { href: "/contact",  label: t.nav.contact,     prefix: false },
   ];
 
   // prettier-ignore
   const touristLinks = [
-    { href: "/dashboard/tourist",         label: "My Bookings", prefix: false },
-    { href: "/dashboard/tourist/reviews", label: "My Reviews",  prefix: false },
-    { href: "/dashboard/profile",         label: "Profile",     prefix: false },
+    { href: "/dashboard/tourist",         label: t.nav.myBookings, prefix: false },
+    { href: "/dashboard/tourist/reviews", label: t.nav.myReviews,  prefix: false },
+    { href: "/dashboard/profile",         label: t.nav.profile,    prefix: false },
   ];
 
   // prettier-ignore
   const guideLinks = [
-    { href: "/dashboard/guide",       label: "Bookings", prefix: false },
-    { href: "/dashboard/guide/tours", label: "My Tours", prefix: true  },
-    { href: "/dashboard/profile",     label: "Profile",  prefix: false },
+    { href: "/dashboard/guide",              label: t.nav.bookings,     prefix: false },
+    { href: "/dashboard/guide/tours",        label: t.nav.myTours,      prefix: true  },
+    { href: "/dashboard/guide/availability", label: t.nav.availability, prefix: false },
+    { href: "/dashboard/profile",            label: t.nav.profile,      prefix: false },
   ];
 
   // prettier-ignore
   const adminLinks = [
-    { href: "/dashboard/admin",   label: "Admin Panel", prefix: false },
-    { href: "/dashboard/profile", label: "Profile",     prefix: false },
+    { href: "/dashboard/admin",   label: t.nav.adminPanel, prefix: false },
+    { href: "/dashboard/profile", label: t.nav.profile,    prefix: false },
   ];
 
   const roleLinks =
@@ -95,7 +97,6 @@ export const Navbar = () => {
             className="h-10 w-auto object-contain"
             priority
           />
-          
         </Link>
 
         {/* Desktop links */}
@@ -107,19 +108,20 @@ export const Navbar = () => {
 
         {/* Desktop auth buttons */}
         <div className="hidden items-center gap-2 md:flex">
+          <LanguageSwitcher />
           {!loading && !user && (
             <>
               <Link
                 href="/login"
                 className="rounded-md px-4 py-2 text-sm font-semibold text-slate-700 ring-1 ring-slate-300 transition-colors hover:bg-slate-50 hover:text-sky-700 hover:ring-sky-400"
               >
-                Login
+                {t.nav.login}
               </Link>
               <Link
                 href="/register"
                 className="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-sky-700"
               >
-                Register
+                {t.nav.register}
               </Link>
             </>
           )}
@@ -137,7 +139,7 @@ export const Navbar = () => {
                 className="flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-semibold text-rose-600 ring-1 ring-rose-200 transition-colors hover:bg-rose-50 hover:ring-rose-400"
               >
                 <LogOut className="h-3.5 w-3.5" />
-                Logout
+                {t.nav.logout}
               </button>
             </div>
           )}
@@ -167,6 +169,14 @@ export const Navbar = () => {
               />
             ))}
 
+            {/* Language switcher */}
+            <div className="mt-2 border-t border-slate-100 pt-3">
+              <p className="mb-1.5 px-1 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Language
+              </p>
+              <LanguageSwitcher />
+            </div>
+
             <div className="mt-3 border-t border-slate-100 pt-3">
               {!loading && !user && (
                 <div className="flex flex-col gap-2">
@@ -175,14 +185,14 @@ export const Navbar = () => {
                     onClick={() => setMobileOpen(false)}
                     className="rounded-md px-3 py-2.5 text-center text-sm font-semibold text-slate-700 ring-1 ring-slate-300 transition-colors hover:bg-slate-50"
                   >
-                    Login
+                    {t.nav.login}
                   </Link>
                   <Link
                     href="/register"
                     onClick={() => setMobileOpen(false)}
                     className="rounded-md bg-sky-600 px-3 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-sky-700"
                   >
-                    Register
+                    {t.nav.register}
                   </Link>
                 </div>
               )}
@@ -202,7 +212,7 @@ export const Navbar = () => {
                     className="flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-semibold text-rose-600 ring-1 ring-rose-200 hover:bg-rose-50"
                   >
                     <LogOut className="h-3.5 w-3.5" />
-                    Logout
+                    {t.nav.logout}
                   </button>
                 </div>
               )}
@@ -214,7 +224,7 @@ export const Navbar = () => {
   );
 };
 
-// ─── Mobile NavLink (with active highlight) ───────────────────────────────────
+// ─── Mobile NavLink ───────────────────────────────────────────────────────────
 function MobileNavLink({
   href,
   label,
