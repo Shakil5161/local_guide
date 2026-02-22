@@ -56,9 +56,21 @@ const getAllPayments = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const verifySession = catchAsync(async (req: Request, res: Response) => {
+    const { sessionId, paymentId } = req.body;
+    const result = await PaymentService.verifySession(req.user!.email, sessionId, paymentId);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Session verified successfully!",
+        data: result
+    });
+});
+
 export const PaymentController = {
     initiatePayment,
     verifyPayment,
+    verifySession,
     stripeWebhook,
     getPaymentByBookingId,
     getAllPayments

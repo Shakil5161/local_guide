@@ -163,6 +163,15 @@ const getMyBookings = async (touristEmail: string) => {
                         }
                     }
                 }
+            },
+            payment: {
+                select: {
+                    id: true,
+                    paymentStatus: true,
+                    amount: true,
+                    paymentMethod: true,
+                    transactionId: true
+                }
             }
         },
         orderBy: {
@@ -197,6 +206,15 @@ const getGuideBookings = async (guideEmail: string) => {
                             profilePicture: true
                         }
                     }
+                }
+            },
+            payment: {
+                select: {
+                    id: true,
+                    paymentStatus: true,
+                    amount: true,
+                    paymentMethod: true,
+                    transactionId: true
                 }
             }
         },

@@ -230,6 +230,57 @@ const handleStripeWebhook = async (signature: string | undefined, rawBody: Buffe
     return { received: true, eventType: event.type };
 };
 
+// ==================== VERIFY SESSION (post-redirect, works without webhook) ====================
+const verifySession = async (touristEmail: string, sessionId: string, paymentId: string) => {
+    const tourist = await prisma.user.findUnique({ where: { email: touristEmail } });
+
+    if (!tourist || tourist.role !== UserRole.TOURIST) {
+        throw new ApiError(httpStatus.FORBIDDEN, "Only tourists can verify payments!");
+    }
+
+    // Confirm this payment belongs to this tourist
+    const payment = await prisma.payment.findUnique({
+        where: { id: paymentId },
+        include: { booking: true }
+    });
+
+    if (!payment) {
+        throw new ApiError(httpStatus.NOT_FOUND, "Payment not found!");
+    }
+
+    if (payment.userId !== tourist.id) {
+        throw new ApiError(httpStatus.FORBIDDEN, "You can only verify your own payments!");
+    }
+
+    // Already completed — nothing to do
+    if (payment.paymentStatus === "completed") {
+        return { alreadyCompleted: true, paymentStatus: "completed" };
+    }
+
+    // Ask Stripe directly for the session status
+    const stripe = getStripeClient();
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+    if (session.payment_status === "paid") {
+        await prisma.payment.update({
+            where: { id: paymentId },
+            data: {
+                paymentStatus: "completed",
+                transactionId: session.id
+            }
+        });
+
+        await prisma.booking.update({
+            where: { id: payment.bookingId },
+            data: { status: BookingStatus.CONFIRMED }
+        });
+
+        return { alreadyCompleted: false, paymentStatus: "completed" };
+    }
+
+    return { alreadyCompleted: false, paymentStatus: session.payment_status };
+};
+
 // ==================== GET PAYMENT BY BOOKING ID ====================
 const getPaymentByBookingId = async (bookingId: string, userEmail: string) => {
     const user = await prisma.user.findUnique({
@@ -331,6 +382,7 @@ const getAllPayments = async (params: any) => {
 export const PaymentService = {
     initiatePayment,
     verifyPayment,
+    verifySession,
     handleStripeWebhook,
     getPaymentByBookingId,
     getAllPayments

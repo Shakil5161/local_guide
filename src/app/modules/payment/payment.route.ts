@@ -14,6 +14,7 @@ router.post('/verify/:id', auth(UserRole.ADMIN), PaymentController.verifyPayment
 
 // Tourist routes
 router.post('/initiate', auth(UserRole.TOURIST), PaymentController.initiatePayment);
+router.post('/verify-session', auth(UserRole.TOURIST), PaymentController.verifySession);
 
 // Shared routes
 router.get('/booking/:bookingId', auth(UserRole.TOURIST, UserRole.GUIDE, UserRole.ADMIN), PaymentController.getPaymentByBookingId);
