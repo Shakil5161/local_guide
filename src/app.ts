@@ -5,9 +5,20 @@ import notFound from './app/middlewares/notFound';
 import router from './app/routes';
 
 const app: Application = express();
+const allowedOrigins = [
+    process.env.FRONTEND_URL || 'http://localhost:3000',
+    'http://localhost:3000',
+    'http://localhost:3001',
+];
+
 app.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true
+    origin: (origin, callback) => {
+        // Allow requests with no origin (e.g. curl, Postman, mobile apps)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) return callback(null, true);
+        callback(new Error(`CORS: origin ${origin} not allowed`));
+    },
+    credentials: true,
 }));
 
 // Stripe webhook requires raw body for signature verification.
