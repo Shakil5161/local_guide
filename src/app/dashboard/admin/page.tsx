@@ -55,7 +55,7 @@ interface PaymentRecord {
   } | null;
 }
 
-type Tab = "overview" | "users" | "bookings" | "payments";
+type Tab = "overview" | "users" | "tours" | "bookings" | "payments";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -764,6 +764,172 @@ function PaymentsTab() {
   );
 }
 
+// ─── Tours Tab ────────────────────────────────────────────────────────────────
+
+interface TourAdminRecord {
+  id: string;
+  title: string;
+  city: string;
+  country: string;
+  category: string;
+  price: number;
+  isActive: boolean;
+  createdAt: string;
+  guide: { email: string; profile: { name: string } | null } | null;
+  _count: { bookings: number; reviews: number };
+}
+
+function ToursTab() {
+  const [tours, setTours] = useState<TourAdminRecord[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [actionId, setActionId] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const LIMIT = 10;
+
+  const fetchTours = useCallback(async (p: number) => {
+    setLoading(true);
+    try {
+      const res = await api.get(`/tours?page=${p}&limit=${LIMIT}`);
+      setTours(res.data?.data ?? []);
+      setTotal(res.data?.meta?.total ?? 0);
+    } catch {
+      toast.error("Failed to load tours.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchTours(page);
+  }, [fetchTours, page]);
+
+  const handleToggle = async (tour: TourAdminRecord) => {
+    setActionId(tour.id);
+    try {
+      await api.patch(`/tours/${tour.id}`, { isActive: !tour.isActive });
+      toast.success(tour.isActive ? "Tour unpublished." : "Tour published!");
+      fetchTours(page);
+    } catch {
+      toast.error("Action failed.");
+    } finally {
+      setActionId(null);
+    }
+  };
+
+  const handleDelete = async (tour: TourAdminRecord) => {
+    if (!confirm(`Remove "${tour.title}" from the platform?`)) return;
+    setActionId(tour.id);
+    try {
+      await api.delete(`/tours/${tour.id}`);
+      toast.success("Tour removed.");
+      fetchTours(page);
+    } catch {
+      toast.error("Delete failed.");
+    } finally {
+      setActionId(null);
+    }
+  };
+
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <div className="border-b border-slate-100 px-5 py-4">
+        <h3 className="font-semibold text-slate-700">All Tours</h3>
+        <p className="text-xs text-slate-400">{total} active tours on platform</p>
+      </div>
+
+      {loading ? (
+        <TableSkeleton rows={8} cols={6} />
+      ) : tours.length === 0 ? (
+        <div className="py-16 text-center text-slate-400">No tours found.</div>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-slate-100 bg-slate-50 text-left text-xs text-slate-500">
+                <th className="px-4 py-3 font-medium">Title</th>
+                <th className="px-4 py-3 font-medium">Guide</th>
+                <th className="px-4 py-3 font-medium">Location</th>
+                <th className="px-4 py-3 font-medium">Price</th>
+                <th className="px-4 py-3 font-medium">Bookings</th>
+                <th className="px-4 py-3 font-medium">Status</th>
+                <th className="px-4 py-3 font-medium">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-50">
+              {tours.map((tour) => {
+                const isLoading = actionId === tour.id;
+                return (
+                  <tr key={tour.id} className="hover:bg-slate-50/60">
+                    <td className="max-w-[180px] truncate px-4 py-3 font-medium text-slate-800">
+                      {tour.title}
+                    </td>
+                    <td className="px-4 py-3 text-slate-500">
+                      {tour.guide?.profile?.name ?? tour.guide?.email ?? "—"}
+                    </td>
+                    <td className="px-4 py-3 text-slate-400">
+                      {tour.city}, {tour.country}
+                    </td>
+                    <td className="px-4 py-3 font-semibold text-sky-700">
+                      ${tour.price}
+                    </td>
+                    <td className="px-4 py-3 text-slate-500">
+                      {tour._count?.bookings ?? 0}
+                    </td>
+                    <td className="px-4 py-3">
+                      <Badge
+                        label={tour.isActive ? "Active" : "Inactive"}
+                        colorClass={
+                          tour.isActive
+                            ? "bg-emerald-50 text-emerald-700"
+                            : "bg-slate-100 text-slate-500"
+                        }
+                      />
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={() => handleToggle(tour)}
+                          disabled={isLoading}
+                          title={tour.isActive ? "Unpublish" : "Publish"}
+                          className="rounded-lg border border-slate-200 p-1.5 text-slate-500 hover:bg-amber-50 hover:text-amber-600 disabled:opacity-40"
+                        >
+                          {isLoading ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : tour.isActive ? (
+                            <ShieldOff className="h-4 w-4" />
+                          ) : (
+                            <ShieldCheck className="h-4 w-4 text-emerald-500" />
+                          )}
+                        </button>
+                        <button
+                          onClick={() => handleDelete(tour)}
+                          disabled={isLoading}
+                          title="Remove tour"
+                          className="rounded-lg border border-slate-200 p-1.5 text-slate-400 hover:bg-rose-50 hover:text-rose-500 disabled:opacity-40"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      <Pagination
+        page={page}
+        total={total}
+        limit={LIMIT}
+        onChange={(p) => setPage(p)}
+      />
+    </div>
+  );
+}
+
 // ─── Nav Tab Button ───────────────────────────────────────────────────────────
 
 function TabButton({
@@ -829,6 +995,7 @@ function AdminDashboardContent() {
   const TABS: { id: Tab; label: string; icon: React.ElementType }[] = [
     { id: "overview", label: "Overview", icon: TrendingUp },
     { id: "users", label: "Users", icon: Users },
+    { id: "tours", label: "Tours", icon: Map },
     { id: "bookings", label: "Bookings", icon: BookOpen },
     { id: "payments", label: "Payments", icon: CreditCard },
   ];
@@ -873,6 +1040,7 @@ function AdminDashboardContent() {
           )
         )}
         {tab === "users" && <UsersTab />}
+        {tab === "tours" && <ToursTab />}
         {tab === "bookings" && <BookingsTab />}
         {tab === "payments" && <PaymentsTab />}
       </div>

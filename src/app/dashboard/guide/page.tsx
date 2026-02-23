@@ -20,6 +20,8 @@ import {
   Phone,
   Mail,
   Map,
+  CalendarDays,
+  User,
 } from "lucide-react";
 
 // ─── Status Badge ─────────────────────────────────────────────────────────────
@@ -358,12 +360,26 @@ function GuideDashboardContent() {
                 Manage booking requests from tourists
               </p>
             </div>
-            <Link href="/dashboard/guide/tours">
-              <Button className="gap-2 bg-white text-indigo-700 hover:bg-indigo-50">
-                <Map className="h-4 w-4" />
-                Manage My Tours
-              </Button>
-            </Link>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/dashboard/guide/tours">
+                <Button className="gap-2 bg-white text-indigo-700 hover:bg-indigo-50">
+                  <Map className="h-4 w-4" />
+                  My Tours
+                </Button>
+              </Link>
+              <Link href="/dashboard/guide/availability">
+                <Button variant="outline" className="gap-2 border-white/30 bg-white/10 text-white hover:bg-white/20">
+                  <CalendarDays className="h-4 w-4" />
+                  Availability
+                </Button>
+              </Link>
+              <Link href="/dashboard/profile">
+                <Button variant="outline" className="gap-2 border-white/30 bg-white/10 text-white hover:bg-white/20">
+                  <User className="h-4 w-4" />
+                  Profile
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -395,6 +411,29 @@ function GuideDashboardContent() {
 
         <div className="mb-6">
           <RevenueCard bookings={bookings} />
+        </div>
+
+        {/* Quick Links */}
+        <div className="mb-6 grid grid-cols-3 gap-3">
+          {[
+            { href: "/dashboard/guide/tours", icon: Map, label: "Manage Tours", desc: "Create & edit listings", color: "text-indigo-600", bg: "bg-indigo-50" },
+            { href: "/dashboard/guide/availability", icon: CalendarDays, label: "Set Availability", desc: "Manage open dates", color: "text-sky-600", bg: "bg-sky-50" },
+            { href: "/dashboard/profile", icon: User, label: "Edit Profile", desc: "Update your info", color: "text-emerald-600", bg: "bg-emerald-50" },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5"
+            >
+              <div className={`rounded-xl p-2.5 ${item.bg}`}>
+                <item.icon className={`h-5 w-5 ${item.color}`} />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-slate-700">{item.label}</p>
+                <p className="text-xs text-slate-400">{item.desc}</p>
+              </div>
+            </Link>
+          ))}
         </div>
 
         {/* Tabs */}
