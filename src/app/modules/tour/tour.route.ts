@@ -15,10 +15,10 @@ router.get('/', TourController.getAllTours);
 router.get('/:id', TourController.getTourById);
 router.get('/:id/availability', TourController.getAvailability);
 
-// Protected routes - Guide only
+// Protected routes - Guide (own tours) or Admin (any tour)
 router.post('/', auth(UserRole.GUIDE), TourController.createTour);
-router.patch('/:id', auth(UserRole.GUIDE), TourController.updateTour);
-router.delete('/:id', auth(UserRole.GUIDE), TourController.deleteTour);
+router.patch('/:id', auth(UserRole.GUIDE, UserRole.ADMIN), TourController.updateTour);
+router.delete('/:id', auth(UserRole.GUIDE, UserRole.ADMIN), TourController.deleteTour);
 router.post('/:id/availability', auth(UserRole.GUIDE), TourController.setAvailability);
 router.delete('/:id/availability/:availId', auth(UserRole.GUIDE), TourController.deleteAvailabilityDate);
 

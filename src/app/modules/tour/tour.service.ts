@@ -208,61 +208,54 @@ const getTourById = async (id: string) => {
 };
 
 // ==================== UPDATE TOUR ====================
-const updateTour = async (tourId: string, guideEmail: string, payload: any) => {
-    // Get guide
-    const guide = await prisma.user.findUnique({
-        where: { email: guideEmail },
+const updateTour = async (tourId: string, userEmail: string, payload: any) => {
+    const user = await prisma.user.findUnique({
+        where: { email: userEmail },
         include: { profile: true }
     });
 
-    if (!guide || !guide.profile) {
-        throw new ApiError(httpStatus.NOT_FOUND, "Guide not found!");
+    if (!user) {
+        throw new ApiError(httpStatus.NOT_FOUND, "User not found!");
     }
 
-    // Check if tour belongs to guide
-    const tour = await prisma.tour.findUnique({
-        where: { id: tourId }
-    });
+    const tour = await prisma.tour.findUnique({ where: { id: tourId } });
 
     if (!tour) {
         throw new ApiError(httpStatus.NOT_FOUND, "Tour not found!");
     }
 
-    if (tour.guideId !== guide.id) {
+    // Admins can update any tour; guides can only update their own
+    if (user.role !== UserRole.ADMIN && tour.guideId !== user.id) {
         throw new ApiError(httpStatus.FORBIDDEN, "You can only update your own tours!");
     }
 
     const updatedTour = await prisma.tour.update({
         where: { id: tourId },
         data: payload,
-        include: {
-            guide: true
-        }
+        include: { guide: true }
     });
 
     return updatedTour;
 };
 
 // ==================== DELETE TOUR ====================
-const deleteTour = async (tourId: string, guideEmail: string) => {
-    const guide = await prisma.user.findUnique({
-        where: { email: guideEmail },
-        include: { profile: true }
+const deleteTour = async (tourId: string, userEmail: string) => {
+    const user = await prisma.user.findUnique({
+        where: { email: userEmail }
     });
 
-    if (!guide || !guide.profile) {
-        throw new ApiError(httpStatus.NOT_FOUND, "Guide not found!");
+    if (!user) {
+        throw new ApiError(httpStatus.NOT_FOUND, "User not found!");
     }
 
-    const tour = await prisma.tour.findUnique({
-        where: { id: tourId }
-    });
+    const tour = await prisma.tour.findUnique({ where: { id: tourId } });
 
     if (!tour) {
         throw new ApiError(httpStatus.NOT_FOUND, "Tour not found!");
     }
 
-    if (tour.guideId !== guide.id) {
+    // Admins can delete any tour; guides can only delete their own
+    if (user.role !== UserRole.ADMIN && tour.guideId !== user.id) {
         throw new ApiError(httpStatus.FORBIDDEN, "You can only delete your own tours!");
     }
 
