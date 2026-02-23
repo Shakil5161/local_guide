@@ -14,7 +14,7 @@ const getStripeClient = () => {
 
     if (!stripeClient) {
         stripeClient = new Stripe(config.stripe_secret_key, {
-            apiVersion: "2025-01-27.acacia"
+            apiVersion: "2025-08-27.basil"
         });
     }
 
