@@ -8,9 +8,10 @@ async function bootstrap() {
     let server: Server;
 
     try {
-        // Start the server
-        server = app.listen(config.port, () => {
-            console.log(`🚀 Server is running on http://localhost:${config.port}`);
+        // Start the server — listen on 0.0.0.0 so Railway can route traffic
+        const PORT = Number(config.port) || 5000;
+        server = app.listen(PORT, '0.0.0.0', () => {
+            console.log(`🚀 Server is running on port ${PORT}`);
         });
 
         // Function to gracefully shut down the server
