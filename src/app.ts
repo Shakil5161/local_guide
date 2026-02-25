@@ -9,6 +9,7 @@ const allowedOrigins = [
     process.env.FRONTEND_URL || 'http://localhost:3000',
     'http://localhost:3000',
     'http://localhost:3001',
+    'https://local-guide-eight.vercel.app',
 ];
 
 app.use(cors({
