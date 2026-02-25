@@ -1,6 +1,7 @@
 const en = {
   // Navbar
   nav: {
+    home: "Home",
     explore: "Explore Tours",
     findGuides: "Find Guides",
     about: "About",

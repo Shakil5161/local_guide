@@ -45,6 +45,7 @@ export const Navbar = () => {
 
   // prettier-ignore
   const commonLinks = [
+    { href: "/",         label: t.nav.home,        prefix: false },
     { href: "/explore",  label: t.nav.explore,     prefix: true  },
     { href: "/guides",   label: t.nav.findGuides,  prefix: true  },
     { href: "/about",    label: t.nav.about,       prefix: false },

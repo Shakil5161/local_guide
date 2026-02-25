@@ -2,6 +2,7 @@ import type { Translations } from "./en";
 
 const bn: Translations = {
   nav: {
+    home: "হোম",
     explore: "ট্যুর অন্বেষণ করুন",
     findGuides: "গাইড খুঁজুন",
     about: "আমাদের সম্পর্কে",

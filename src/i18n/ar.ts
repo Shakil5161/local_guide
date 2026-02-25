@@ -2,6 +2,7 @@ import type { Translations } from "./en";
 
 const ar: Translations = {
   nav: {
+    home: "الرئيسية",
     explore: "استكشف الجولات",
     findGuides: "ابحث عن مرشدين",
     about: "عن المنصة",
