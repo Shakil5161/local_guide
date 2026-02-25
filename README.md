@@ -329,6 +329,7 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 /booking/success     - Confirmation page
 ```
 
+
 ---
 
 ## 🧩 Components
