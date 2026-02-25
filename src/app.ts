@@ -10,6 +10,7 @@ const allowedOrigins = [
     'http://localhost:3000',
     'http://localhost:3001',
     'https://local-guide-eight.vercel.app',
+    'https://localguide-murex.vercel.app',
 ];
 
 app.use(cors({
