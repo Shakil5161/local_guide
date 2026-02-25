@@ -1,0 +1,465 @@
+{
+  "users": [
+    {
+      "id": "65330fd0-d621-44ec-8b5f-c5449a37e2a7",
+      "email": "musa@gmail.com",
+      "password": "$2b$12$8yLWOqGQTHYpd3p9U16kTebN7/14ohsGPXAfAZmreOl39S9P5KJ0e",
+      "role": "TOURIST",
+      "status": "ACTIVE",
+      "needPasswordChange": false,
+      "createdAt": "2026-02-14T10:26:32.467Z",
+      "updatedAt": "2026-02-14T10:26:32.467Z",
+      "profile": {
+        "id": "d12439ac-286a-401d-a596-5b17751a79a5",
+        "userId": "65330fd0-d621-44ec-8b5f-c5449a37e2a7",
+        "name": "Musa",
+        "profilePicture": null,
+        "bio": null,
+        "phone": "01642393470",
+        "city": "Dhaka",
+        "country": "Bangladesh",
+        "languages": [],
+        "expertise": [],
+        "dailyRate": null,
+        "yearsOfExperience": null,
+        "isVerified": false,
+        "travelPreferences": [],
+        "createdAt": "2026-02-14T10:26:32.493Z",
+        "updatedAt": "2026-02-14T10:26:32.493Z"
+      }
+    },
+    {
+      "id": "11853859-9e5d-4183-87bd-298ea7eb4014",
+      "email": "safa@gmail.com",
+      "password": "$2b$12$ZACXacH7UjIipYCB.Nob4.YjDtaDLN2HxugqzJXsTEt5.BEdQJOkK",
+      "role": "GUIDE",
+      "status": "ACTIVE",
+      "needPasswordChange": false,
+      "createdAt": "2026-02-14T10:27:19.128Z",
+      "updatedAt": "2026-02-14T10:27:19.128Z",
+      "profile": {
+        "id": "cc2a0b78-af9d-4333-87fe-4e6be0339654",
+        "userId": "11853859-9e5d-4183-87bd-298ea7eb4014",
+        "name": "Safa",
+        "profilePicture": "https://cdn.pixabay.com/photo/2020/05/08/04/31/girls-5144084_1280.jpg",
+        "bio": null,
+        "phone": "01642392356",
+        "city": "Dhaka",
+        "country": "Bangladesh",
+        "languages": [],
+        "expertise": [],
+        "dailyRate": null,
+        "yearsOfExperience": null,
+        "isVerified": false,
+        "travelPreferences": [],
+        "createdAt": "2026-02-14T10:27:19.132Z",
+        "updatedAt": "2026-02-21T11:14:07.812Z"
+      }
+    },
+    {
+      "id": "fada6f61-a2c7-4dc8-b251-a8d63f8f2d91",
+      "email": "shakilahmed5161@gmail.com",
+      "password": "$2b$12$bvYFr9kyYOUc4hQPngNO6ub5ItjoZ0hlYz5aG3h0YfriOZ9DVj5SC",
+      "role": "ADMIN",
+      "status": "ACTIVE",
+      "needPasswordChange": false,
+      "createdAt": "2026-02-14T10:28:48.547Z",
+      "updatedAt": "2026-02-14T10:28:48.547Z",
+      "profile": {
+        "id": "8de38c8a-af53-461b-8043-3d31eb005fc1",
+        "userId": "fada6f61-a2c7-4dc8-b251-a8d63f8f2d91",
+        "name": "Shakil Ahmed",
+        "profilePicture": null,
+        "bio": null,
+        "phone": "01641969790",
+        "city": "New York",
+        "country": "Bangladesh",
+        "languages": [
+          "English",
+          "Bangla"
+        ],
+        "expertise": [
+          "History",
+          "Food",
+          "Gym"
+        ],
+        "dailyRate": null,
+        "yearsOfExperience": null,
+        "isVerified": false,
+        "travelPreferences": [],
+        "createdAt": "2026-02-14T10:28:48.550Z",
+        "updatedAt": "2026-02-19T01:25:45.023Z"
+      }
+    },
+    {
+      "id": "a95ff77d-279f-4726-a347-c47732aef613",
+      "email": "shakibahmed@gmail.com",
+      "password": "$2b$12$HhoK9g3PQV61LSZI4aTX.OhS6Aun6LdUGIAL9wUkMp872qw.Z0h92",
+      "role": "GUIDE",
+      "status": "DELETED",
+      "needPasswordChange": false,
+      "createdAt": "2026-02-19T01:08:35.838Z",
+      "updatedAt": "2026-02-19T01:32:34.851Z",
+      "profile": {
+        "id": "057609ec-fc12-4290-900b-f8648d9b15ac",
+        "userId": "a95ff77d-279f-4726-a347-c47732aef613",
+        "name": "Shakib Alom",
+        "profilePicture": null,
+        "bio": null,
+        "phone": "01641969790",
+        "city": "Dhaka",
+        "country": "Bangladesh",
+        "languages": [],
+        "expertise": [],
+        "dailyRate": null,
+        "yearsOfExperience": null,
+        "isVerified": false,
+        "travelPreferences": [],
+        "createdAt": "2026-02-19T01:08:35.847Z",
+        "updatedAt": "2026-02-19T01:08:35.847Z"
+      }
+    },
+    {
+      "id": "65ae0c18-bcbf-4879-a464-87bdedfcde4b",
+      "email": "shakib@gmail.com",
+      "password": "$2b$12$ITUMyW1tgkZ8KFfbXrl2P.ZKYuHeEfJWcMQ.rziHfysca0ozQnxwe",
+      "role": "GUIDE",
+      "status": "ACTIVE",
+      "needPasswordChange": false,
+      "createdAt": "2026-02-19T01:34:15.843Z",
+      "updatedAt": "2026-02-19T01:34:15.843Z",
+      "profile": {
+        "id": "0b07e225-31e0-4c80-9154-718d14667b8d",
+        "userId": "65ae0c18-bcbf-4879-a464-87bdedfcde4b",
+        "name": "Shakib Al Hasan",
+        "profilePicture": null,
+        "bio": null,
+        "phone": "01641969790",
+        "city": "New York",
+        "country": "USA",
+        "languages": [
+          "English",
+          "Bangla"
+        ],
+        "expertise": [
+          "History",
+          "Art"
+        ],
+        "dailyRate": 150,
+        "yearsOfExperience": 5,
+        "isVerified": false,
+        "travelPreferences": [
+          "Culture",
+          "Food"
+        ],
+        "createdAt": "2026-02-19T01:34:15.847Z",
+        "updatedAt": "2026-02-22T18:20:04.367Z"
+      }
+    },
+    {
+      "id": "798eaf01-9fe2-4d34-9c46-17a821f080c5",
+      "email": "kabir@gmail.com",
+      "password": "$2b$12$Nf05I7gtGj/6ORxS6KNtmOTYWYAshwRxDAzoqT6lWQjqtzq4Y8Rge",
+      "role": "GUIDE",
+      "status": "ACTIVE",
+      "needPasswordChange": false,
+      "createdAt": "2026-02-21T01:16:46.706Z",
+      "updatedAt": "2026-02-21T01:16:46.706Z",
+      "profile": {
+        "id": "70f2ecae-37c8-4d36-bffb-42895389e58e",
+        "userId": "798eaf01-9fe2-4d34-9c46-17a821f080c5",
+        "name": "Kabir",
+        "profilePicture": null,
+        "bio": null,
+        "phone": "01641969790",
+        "city": "Dhaka",
+        "country": "Bangladesh",
+        "languages": [],
+        "expertise": [],
+        "dailyRate": null,
+        "yearsOfExperience": null,
+        "isVerified": false,
+        "travelPreferences": [],
+        "createdAt": "2026-02-21T01:16:46.713Z",
+        "updatedAt": "2026-02-21T01:16:46.713Z"
+      }
+    }
+  ],
+  "tours": [
+    {
+      "id": "0a8b8231-6fd5-406d-8704-f60efd857015",
+      "guideId": "11853859-9e5d-4183-87bd-298ea7eb4014",
+      "title": "Wine Bars of Tuscany",
+      "description": "Wander through hidden wine bars in Florence and Siena, tasting regional wines and local delicacies.",
+      "category": "FOOD",
+      "price": 160,
+      "duration": 6,
+      "maxGroupSize": 8,
+      "location": "Florence, Italy",
+      "city": "Florence",
+      "country": "France",
+      "meetingPoint": "Ponte Vecchio",
+      "images": [
+        "https://cdn.pixabay.com/photo/2023/10/28/06/40/wine-8346641_1280.jpg",
+        "https://starwinelist.com/storage/images/guide/492/1110x624/tE4roldGWWgs6gYIq6z2Qt68x45BpwrrkyzVliy2.jpeg?signature=48e992c42568ce715343989586dd9ed842c72ed62161d0d309ab2de7181ea6d0"
+      ],
+      "included": [],
+      "excluded": [],
+      "isActive": true,
+      "createdAt": "2026-02-19T01:49:07.316Z",
+      "updatedAt": "2026-02-21T10:56:29.460Z"
+    },
+    {
+      "id": "cc779a88-d71f-4822-b47b-3975a9898012",
+      "guideId": "11853859-9e5d-4183-87bd-298ea7eb4014",
+      "title": "Karaoke Bars of Tokyo",
+      "description": "Explore Tokyo's hidden karaoke bars where locals go for private sing-alongs and themed rooms.",
+      "category": "NIGHTLIFE",
+      "price": 140,
+      "duration": 3,
+      "maxGroupSize": 6,
+      "location": "Tokyo, Japan",
+      "city": "Tokyo",
+      "country": "Japan",
+      "meetingPoint": "Shinjuku Station",
+      "images": [
+        "https://cdn.pixabay.com/photo/2019/07/14/08/08/night-4336403_1280.jpg",
+        "https://cdn.pixabay.com/photo/2020/01/31/07/26/chef-4807317_1280.jpg"
+      ],
+      "included": [],
+      "excluded": [],
+      "isActive": true,
+      "createdAt": "2026-02-19T01:48:43.892Z",
+      "updatedAt": "2026-02-21T10:57:43.839Z"
+    },
+    {
+      "id": "832b8064-12d2-48c3-87ef-29c122f6e284",
+      "guideId": "11853859-9e5d-4183-87bd-298ea7eb4014",
+      "title": "Salsa Clubs of Havana",
+      "description": "Dance the night away in Cuba’s most vibrant salsa clubs, from tourist spots to local hideouts.",
+      "category": "PHOTOGRAPHY",
+      "price": 90,
+      "duration": 4,
+      "maxGroupSize": 12,
+      "location": "Havana, Cuba",
+      "city": "Havana",
+      "country": "Cuba",
+      "meetingPoint": "Capitolio Building",
+      "images": [
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/16/1e/c3/76/salsabor-a-cuba-bailando.jpg?w=900&h=500&s=1",
+        "https://golatindance.com/wp-content/uploads/2022/11/Havana-Club-Friday.jpg"
+      ],
+      "included": [],
+      "excluded": [],
+      "isActive": true,
+      "createdAt": "2026-02-19T01:48:13.442Z",
+      "updatedAt": "2026-02-21T11:00:27.743Z"
+    },
+    {
+      "id": "ef6c061c-d00e-47a1-b9e0-7200030f43af",
+      "guideId": "65ae0c18-bcbf-4879-a464-87bdedfcde4b",
+      "title": "Flamenco & Tapas in Seville",
+      "description": "Experience authentic flamenco shows in hidden tablaos while enjoying Spanish tapas.",
+      "category": "HISTORY",
+      "price": 110,
+      "duration": 4,
+      "maxGroupSize": 10,
+      "location": "Seville, Spain",
+      "city": "Seville",
+      "country": "Spain",
+      "meetingPoint": "Seville Cathedral",
+      "images": [
+        "https://cdn.pixabay.com/photo/2023/02/04/16/29/boat-7767575_1280.jpg",
+        "https://cdn.pixabay.com/photo/2023/01/06/07/09/italian-venezia-7700548_1280.jpg"
+      ],
+      "included": [],
+      "excluded": [],
+      "isActive": true,
+      "createdAt": "2026-02-19T01:46:05.447Z",
+      "updatedAt": "2026-02-21T10:41:56.716Z"
+    },
+    {
+      "id": "38fd17d7-3e2a-4743-9ef6-89fcf7563e83",
+      "guideId": "65ae0c18-bcbf-4879-a464-87bdedfcde4b",
+      "title": "Underground Speakeasies of NYC",
+      "description": "Step back in time and explore hidden speakeasies in Manhattan’s East Village.",
+      "category": "NIGHTLIFE",
+      "price": 150,
+      "duration": 3,
+      "maxGroupSize": 5,
+      "location": "New York, USA",
+      "city": "New York",
+      "country": "USA",
+      "meetingPoint": "Union Square",
+      "images": [
+        "https://cdn.pixabay.com/photo/2020/05/04/13/30/outdoors-5129182_1280.jpg",
+        "https://cdn.pixabay.com/photo/2017/09/29/23/54/america-2800896_1280.jpg",
+        "https://cdn.pixabay.com/photo/2014/11/21/17/23/new-york-540807_1280.jpg"
+      ],
+      "included": [],
+      "excluded": [],
+      "isActive": true,
+      "createdAt": "2026-02-19T01:45:48.809Z",
+      "updatedAt": "2026-02-21T10:45:37.927Z"
+    },
+    {
+      "id": "71372107-d823-4b01-be47-26f1cc199f46",
+      "guideId": "65ae0c18-bcbf-4879-a464-87bdedfcde4b",
+      "title": "Secret Rooftop Bars in Bangkok",
+      "description": "Discover Bangkok’s most exclusive rooftop bars with stunning skyline views.",
+      "category": "NIGHTLIFE",
+      "price": 95,
+      "duration": 5,
+      "maxGroupSize": 6,
+      "location": "Bangkok, Thailand",
+      "city": "Bangkok",
+      "country": "Thailand",
+      "meetingPoint": "Siam BTS Station",
+      "images": [
+        "https://images.travelandleisureasia.com/wp-content/uploads/sites/7/2023/05/03115950/rooftop-bars-in-Bangkok-7.jpg?tr=w-1366",
+        "https://images.travelandleisureasia.com/wp-content/uploads/sites/6/2023/04/02180723/rooftop-bars-in-Bangkok-1.jpg?tr=w-1920"
+      ],
+      "included": [],
+      "excluded": [],
+      "isActive": true,
+      "createdAt": "2026-02-19T01:45:35.850Z",
+      "updatedAt": "2026-02-21T10:49:41.275Z"
+    },
+    {
+      "id": "6476fe73-a3f6-41eb-97d3-be37988fc9b3",
+      "guideId": "65ae0c18-bcbf-4879-a464-87bdedfcde4b",
+      "title": "Hidden Jazz Bars of New Orleans",
+      "description": "Explore the best jazz bars...",
+      "category": "NIGHTLIFE",
+      "price": 120,
+      "duration": 4,
+      "maxGroupSize": 8,
+      "location": "New Orleans, USA",
+      "city": "New Orleans",
+      "country": "USA",
+      "meetingPoint": "Jackson Square",
+      "images": [
+        "https://coveteur.com/media-library/image.jpg?id=49444286&width=1245&height=700&quality=90&coordinates=0%2C0%2C0%2C0",
+        "https://www.telegraph.co.uk/content/dam/Travel/2018/May/new-orleans-GettyImages-678716867.jpg?imwidth=1920"
+      ],
+      "included": [],
+      "excluded": [],
+      "isActive": true,
+      "createdAt": "2026-02-19T01:43:04.620Z",
+      "updatedAt": "2026-02-21T10:51:01.391Z"
+    },
+    {
+      "id": "69f0fe59-4eab-4eef-aac4-34ad19a3dbad",
+      "guideId": "11853859-9e5d-4183-87bd-298ea7eb4014",
+      "title": "Blues Bars of Chicago",
+      "description": "Tour Chicago’s historic blues clubs where legends like Muddy Waters once played.",
+      "category": "ART",
+      "price": 130,
+      "duration": 5,
+      "maxGroupSize": 7,
+      "location": "Chicago, USA",
+      "city": "Chicago",
+      "country": "USA",
+      "meetingPoint": "Millennium Park",
+      "images": [
+        "https://cdn.pixabay.com/photo/2016/10/27/17/34/city-1775878_1280.jpg",
+        "https://cdn.pixabay.com/photo/2018/02/27/06/30/skyscrapers-3184798_1280.jpg"
+      ],
+      "included": [],
+      "excluded": [],
+      "isActive": true,
+      "createdAt": "2026-02-19T01:47:59.291Z",
+      "updatedAt": "2026-02-21T11:01:30.510Z"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "04f7db5d-7506-4062-a61f-950f3850e704",
+      "touristId": "65330fd0-d621-44ec-8b5f-c5449a37e2a7",
+      "guideId": "11853859-9e5d-4183-87bd-298ea7eb4014",
+      "tourId": "832b8064-12d2-48c3-87ef-29c122f6e284",
+      "bookingDate": "2026-03-15T10:00:00.000Z",
+      "numberOfPeople": 2,
+      "totalPrice": 180,
+      "status": "COMPLETED",
+      "specialRequests": "Vegetarian food preferences",
+      "createdAt": "2026-02-19T02:17:16.699Z",
+      "updatedAt": "2026-02-19T02:30:49.927Z"
+    },
+    {
+      "id": "b1501e67-5e6f-4394-bd54-f9693f1884ee",
+      "touristId": "65330fd0-d621-44ec-8b5f-c5449a37e2a7",
+      "guideId": "65ae0c18-bcbf-4879-a464-87bdedfcde4b",
+      "tourId": "ef6c061c-d00e-47a1-b9e0-7200030f43af",
+      "bookingDate": "2026-03-15T10:00:00.000Z",
+      "numberOfPeople": 4,
+      "totalPrice": 440,
+      "status": "CONFIRMED",
+      "specialRequests": "Chicken food preferences",
+      "createdAt": "2026-02-20T01:10:54.180Z",
+      "updatedAt": "2026-02-20T01:23:22.010Z"
+    },
+    {
+      "id": "5156a35e-b577-4594-b24d-cb38740908e5",
+      "touristId": "65330fd0-d621-44ec-8b5f-c5449a37e2a7",
+      "guideId": "65ae0c18-bcbf-4879-a464-87bdedfcde4b",
+      "tourId": "6476fe73-a3f6-41eb-97d3-be37988fc9b3",
+      "bookingDate": "2026-02-26T00:00:00.000Z",
+      "numberOfPeople": 2,
+      "totalPrice": 240,
+      "status": "CONFIRMED",
+      "specialRequests": "Need fresh water",
+      "createdAt": "2026-02-21T01:53:10.956Z",
+      "updatedAt": "2026-02-21T02:08:19.271Z"
+    },
+    {
+      "id": "cbba4a8d-fbfc-4784-b00c-b692cc54e2e5",
+      "touristId": "65330fd0-d621-44ec-8b5f-c5449a37e2a7",
+      "guideId": "11853859-9e5d-4183-87bd-298ea7eb4014",
+      "tourId": "69f0fe59-4eab-4eef-aac4-34ad19a3dbad",
+      "bookingDate": "2026-02-25T00:00:00.000Z",
+      "numberOfPeople": 2,
+      "totalPrice": 260,
+      "status": "CONFIRMED",
+      "specialRequests": "provide healthy food",
+      "createdAt": "2026-02-21T01:29:12.456Z",
+      "updatedAt": "2026-02-21T11:03:43.056Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "658f8d6d-ee92-470e-8d60-25803eba2ece",
+      "tourId": "832b8064-12d2-48c3-87ef-29c122f6e284",
+      "userId": "65330fd0-d621-44ec-8b5f-c5449a37e2a7",
+      "rating": 4,
+      "comment": "Updated comment",
+      "createdAt": "2026-02-19T02:32:51.557Z",
+      "updatedAt": "2026-02-19T02:37:14.075Z"
+    }
+  ],
+  "payments": [
+    {
+      "id": "9c6600cc-524a-4d71-b31d-32f7c6ab3271",
+      "bookingId": "b1501e67-5e6f-4394-bd54-f9693f1884ee",
+      "userId": "65330fd0-d621-44ec-8b5f-c5449a37e2a7",
+      "amount": 440,
+      "paymentMethod": "stripe",
+      "transactionId": "cs_test_a1YXAS5X4B4JNVC1LN3qJ4mbusiLzHKJ3sXTmAoKKKSpCnj1xR2w9mWeaP",
+      "paymentStatus": "completed",
+      "createdAt": "2026-02-20T01:15:01.519Z",
+      "updatedAt": "2026-02-20T01:23:22.008Z"
+    },
+    {
+      "id": "8dcf4201-0181-4817-9680-ab79932aa6bc",
+      "bookingId": "5156a35e-b577-4594-b24d-cb38740908e5",
+      "userId": "65330fd0-d621-44ec-8b5f-c5449a37e2a7",
+      "amount": 240,
+      "paymentMethod": "stripe",
+      "transactionId": "cs_test_a1u5N8xsnGJxshOPxRiC864eSLBmSTDQpAodBGRHS7SiuNgPsMwgjxWZXu",
+      "paymentStatus": "completed",
+      "createdAt": "2026-02-21T01:55:19.729Z",
+      "updatedAt": "2026-02-21T02:08:19.262Z"
+    }
+  ],
+  "exportedAt": "2026-02-25T00:49:28.869Z"
+}
