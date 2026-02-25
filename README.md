@@ -318,6 +318,8 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 /dashboard/profile            - Profile management
 ```
 
+
+
 ### **Booking Flow**
 ```
 /tours/[id]          - View tour details
